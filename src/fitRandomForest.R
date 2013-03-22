@@ -106,6 +106,6 @@ mapreduce(input="/poisson/training.csv",
                reduce=fit.trees,
                output="/poisson/output")
 
-raw.forests <- from.dfs("/poisson/output")[["val"]]
+raw.forests <- values(from.dfs("/poisson/output"))
 forest <- do.call(combine, raw.forests)
 
