@@ -81,7 +81,7 @@ poisson.subsample <- function(k, input) {
     # emit the rows; RHadoop takes care of replicating the key appropriately
     # and rbinding the data frames from different mappers together for the
     # reducer
-    keyval(rep(i, length(indices)), input[indices, ])
+    keyval(i, input[indices, ])
   }
   
   # here is where we generate the actual sampled data
