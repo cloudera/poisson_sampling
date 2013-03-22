@@ -77,7 +77,7 @@ poisson.subsample <- function(k, input) {
     draws <- rpois(n=nrow(input), lambda=frac.per.model)
     # compute the index vector for the corresponding rows,
     # weighted by the number of Poisson draws
-    indices <- rep((1:nrow(input))[draws > 0], draws[draws > 0])
+    indices <- rep((1:nrow(input)), draws)
     # emit the rows; RHadoop takes care of replicating the key appropriately
     # and rbinding the data frames from different mappers together for the
     # reducer
