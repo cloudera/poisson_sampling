@@ -42,42 +42,35 @@ model.formula <- SalePrice ~ datasource + auctioneerID + YearMade + saledatenume
 # target <- "SalePrice"
 # predictors <- c("datasource", )
 
-# here's a helper function to parse the input text data into a data frame
-parse.raw <- function(raw) {
-  read.table(textConnection(raw),
-             header=FALSE,
-             sep=",",
-             quote="\"",
-             row.names=NULL,
-             col.names=column.names,
-             fill=TRUE,
-             na.strings=c("NA"),
-             colClasses=c(MachineID="NULL",
-                          SalePrice="numeric",
-                          YearMade="numeric",
-                          MachineHoursCurrentMeter="numeric",
-                          ageAtSale="numeric",
-                          saleYear="numeric",
-                          ModelCount="numeric",
-                          MfgYear="numeric",
-                          ModelID.x="factor",
-                          ModelID.y="factor",
-                          fiManufacturerID="factor",
-                          datasource="factor",
-                          auctioneerID="factor",
-                          saledatenumeric="numeric",
-                          saleDay="factor",
-                          Stick_Length="numeric"))
-}
+# here's an input format tailored for the task
+bulldozer.input.format = 
+	make.input.format(
+		"csv",
+		sep=",",
+		quote="\"",
+		row.names=NULL,
+		col.names=column.names,
+		fill=TRUE,
+		na.strings=c("NA"),
+		colClasses=c(MachineID="NULL",
+								 SalePrice="numeric",
+								 YearMade="numeric",
+								 MachineHoursCurrentMeter="numeric",
+								 ageAtSale="numeric",
+								 saleYear="numeric",
+								 ModelCount="numeric",
+								 MfgYear="numeric",
+								 ModelID.x="factor",
+								 ModelID.y="factor",
+								 fiManufacturerID="factor",
+								 datasource="factor",
+								 auctioneerID="factor",
+								 saledatenumeric="numeric",
+								 saleDay="factor",
+								 Stick_Length="numeric"))
 
 # MAP function
-poisson.subsample <- function(k, v) {
-  # parse data chunk into data frame
-  # raw is basically a chunk of a csv file
-  raw <- paste(v, sep="\n")
-  # convert to data.frame using read.table() in parse.raw()
-  input <- parse.raw(raw)
-  
+poisson.subsample <- function(k, input) {
   # this function is used to generate a sample from the current block of data
   generate.sample <- function(i) {
     # generate N Poisson variables
@@ -112,7 +105,7 @@ fit.trees <- function(k, v) {
 }
 
 mapreduce(input="/poisson/training.csv",
-               input.format="text",
+               input.format=bulldozer.input.format,
                map=poisson.subsample,
                reduce=fit.trees,
                output="/poisson/output")
