@@ -85,12 +85,8 @@ poisson.subsample <- function(k, input) {
   }
   
   # here is where we generate the actual sampled data
-  raw.output <- lapply(1:num.models, generate.sample)
+  c.keyval(lapply(1:num.models, generate.sample))
   
-  # and now we must reshape it into something RHadoop expects
-  output.keys <- do.call(c, lapply(raw.output, function(x) {x$key}))
-  output.vals <- do.call(rbind, lapply(raw.output, function(x) {x$val}))
-  keyval(output.keys, output.vals)
 }
 
 # REDUCE function
