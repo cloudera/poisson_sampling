@@ -16,12 +16,12 @@ Start R REPL and install some packages:
     install.packages(c('functional', 'stringr', 'plyr'), repos="http://cran.revolutionanalytics.com", INSTALL_opts=c('--byte-compile') )
     install.packages(c('rJava'), repos="http://cran.revolutionanalytics.com" )
     install.packages(c('randomForest'), repos="http://cran.revolutionanalytics.com" )
+    install.packages(c('reshape2'), repos="http://cran.revolutionanalytics.com" )
 
 Then dnload RHadoop and install
 
-    wget --no-check-certificate https://github.com/RevolutionAnalytics/RHadoop/tarball/master -O - | tar zx
-    mv RevolutionAnalytics-RHadoop* RHadoop
-    R CMD INSTALL --byte-compile RHadoop/rmr2/pkg/
+    git clone git://github.com/RevolutionAnalytics/rmr2.git
+    R CMD INSTALL --byte-compile rmr2/pkg/
 
 Set some environ vars in `.bashrc`:
 
