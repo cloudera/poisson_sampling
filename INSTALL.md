@@ -27,12 +27,13 @@ Set some environ vars in `.bashrc`:
 
     export HADOOP_HOME=/usr/lib/hadoop
     export HADOOP_CMD=/usr/bin/hadoop
-    export HADOOP_STREAMING=/usr/lib/hadoop-mapreduce/hadoop-streaming-2.0.0-cdh4.1.2.jar
+    export HADOOP_STREAMING=/usr/lib/hadoop-0.20-mapreduce/contrib/streaming/hadoop-streaming-2.0.0-mr1-cdh4.2.0.jar
 
 Make sure to source the new variables before continuing.
 
 Installed `rhdfs`:
 
-    R CMD INSTALL --byte-compile RHadoop/rhdfs/pkg/
+    git clone git://github.com/RevolutionAnalytics/rhdfs.git
+    R CMD INSTALL --byte-compile rhdfs/pkg/
 
 Done.
