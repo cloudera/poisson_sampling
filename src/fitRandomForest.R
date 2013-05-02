@@ -94,7 +94,7 @@ fit.trees <- function(k, v) {
   # rmr rbinds the emited values, so v is a dataframe
   # note that do.trace=T is used to produce output to stderr to keep
   # the reduce task from timing out
-  rf <- randomForest(formula=model.formula, data=v, na.action=na.roughfix, ntree=10, do.trace=TRUE)
+  rf <- randomForest(formula=model.formula, data=v, na.action=na.roughfix, ntree=10, do.trace=FALSE)
   # rf is a list so wrap it in another list to ensure that only
   # one object gets emitted. this is because keyval is vectorized
   keyval(k, list(forest=rf))
